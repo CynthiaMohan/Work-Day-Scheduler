@@ -28,7 +28,8 @@ for (let i = 9; i <= 17; i++) {
     $saveBtn.append($icon);
 
 
-    let now = parseInt(moment().format("h"));
+    let now = parseInt(moment().format("H"));
+
     // let now = 12;
     console.log(now, i);
 
