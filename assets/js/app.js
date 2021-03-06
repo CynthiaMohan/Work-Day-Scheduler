@@ -61,17 +61,22 @@ let saveEvents = function () {
 //Edit the text area
 $(".textarea").on('click', function () {
     let text = $(this).text().trim();
-    let classList = $(".textarea").attr("class");//gives the classes currently in the <textarea>
+    let classList = $(this).attr("class");//gives the classes currently in the <textarea>
     console.log(classList);
-    let textInput = $("<textarea>").addClass(classList).val(text);
+
+    let textInput = $("<textarea>").addClass(classList);
+
     console.log(text);
-    console.log(textInput);
+
+
     $(this).replaceWith(textInput);
     textInput.trigger("focus");
+    console.log(textInput.val());
+    console.log(this.val);
 });
 
 $(".saveBtn").on('click', function () {
     console.log("Save button clicked" + text);
-    $div[id].text = text;
+
 
 });
