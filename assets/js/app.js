@@ -1,17 +1,15 @@
-let events = {};
+
 let $currentDay = $("#currentDay");
 $currentDay.text(moment().format("MMMM Do YYYY,dddd,hA"));
 
-let $hours = ['9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm'];
-let id = 0;
-//For every hour display the time line with text area and save button.
+//For every hour from 9am to 5pm display the time line with text area and save button.
 for (let i = 9; i <= 17; i++) {
 
     //Making the timeblocks elements
     var $container = $(".container");
     let $div = $('<div>')
         .addClass("row time-block")
-        .attr('id', id);
+        .attr('id', i);
 
     let $divTime = $('<div>')
         .addClass("col-3 hour")
@@ -19,7 +17,7 @@ for (let i = 9; i <= 17; i++) {
 
     let $textarea = $('<textarea>')
         .addClass("col-7 textarea")
-        .text(" ");
+        .text(localStorage.getItem(JSON.stringify(i)));
 
     let $saveBtn = $('<button>')
         .addClass("col-2 saveBtn");
@@ -45,38 +43,19 @@ for (let i = 9; i <= 17; i++) {
         $textarea.addClass("future");
     }
 
-
     //Appending time block elements to the div
     $div.append($divTime, $textarea, $saveBtn);
     //Appending the div to the container.
     $container.append($div);
-    id++;
-
 }
-//Save the events as entered into local storage
-let saveEvents = function () {
-    localStorage.setItem("events", JSON.stringify(events));
-};
 
-//Edit the text area
-$(".textarea").on('click', function () {
-    let text = $(this).text().trim();
-    let classList = $(this).attr("class");//gives the classes currently in the <textarea>
-    console.log(classList);
-
-    let textInput = $("<textarea>").addClass(classList);
-
+//Add or Edit and save the text area
+$(".saveBtn").on('click', function () {
+    const text = $(this).siblings("textarea").val();//returns only the sibling of the filter- textarea
     console.log(text);
 
+    const keyId = $(this).parent()[0].id;//returns the parent of this
+    console.log(keyId);
 
-    $(this).replaceWith(textInput);
-    textInput.trigger("focus");
-    console.log(textInput.val());
-    console.log(this.val);
-});
-
-$(".saveBtn").on('click', function () {
-    console.log("Save button clicked" + text);
-
-
+    localStorage.setItem(keyId, text);
 });
